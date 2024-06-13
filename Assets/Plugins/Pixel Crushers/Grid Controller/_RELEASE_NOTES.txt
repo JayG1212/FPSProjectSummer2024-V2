@@ -1,0 +1,99 @@
+Grid Controller
+Copyright © Pixel Crushers
+RELEASE NOTES
+-------------
+
+Version 1.0.11:
+[May 19, 2024]
+- Added: Minimap.
+- Improved: Levers can now be paired to keep in sync (e.g., on either side of a door).
+- Fixed: Grid Controller Events component.
+
+
+Version 1.0.10:
+[April 1, 2024]
+- Improved: Added Debug > Show Raycasts option.
+- Improved: Floor detection raycast now starts from boxcast height + floor detection offset.
+- Improved: Exposed remaining private variables as public/protected properties for subclassing.
+- FMOD: Added optional FMODSurfaceType. Now properly handles floors, walls, and doors that don't have Surface components.
+
+
+Version 1.0.9:
+[August 18, 2023]
+- Added: Scene Portal.
+- Added: Auto Mover (e.g., for stairs).
+- Added: Stairs to DemoScene (uses Auto Mover and Scene Portal).
+- Improved: Trigger colliders no longer block movement.
+- Improved: Updated to remove Unity 2023 obsolete API warning.
+
+
+Version 1.0.8:
+[March 19, 2023]
+- Improved: Continued movement in direction is now perfectly continuous by incorporating leftover delta time from previous frame.
+- FMOD: Added support.
+
+
+Version 1.0.7:
+[January 11, 2023]
+- Fixed issue with steep slopes.
+
+
+Version 1.0.6:
+[January 5, 2023]
+- Fixed issue with turn-based mode.
+
+
+Version 1.0.5:
+[November 29, 2022]
+- Fixed bounce and door audio to use volumes set on their audio sources.
+- FreeLook now has Allow Only When Can Move checkbox.
+- FreeLook now only allows Auto Turn if Grid Controller's CanMove is true.
+- FreeLook now snaps back in parallel with turn like it does with movement.
+- FreeLook temporarily disables head bob while snapping back to prevent strange looking camera rotation.
+- GridController now has Turn Counts As Move checkbox.
+- Added LastAttemptedMoveVector property.
+- Add OnHit() UnityEvent to Surface.
+- Add optional GridControllerEvents component that devs can add to their GridController to expose UnityEvents. 
+
+
+Version 1.0.4:
+[November 25, 2022]
+- Added Blocked C# event to GridController.
+- GridController now prevents standing from crouch if under a low ceiling.
+- GridController's compass direction is now set properly to GameObject's starting rotation.
+- Fixed FreeLook issue introduced by head bob option.
+
+
+Version 1.0.3:
+[November 21, 2022]
+- Fixed crouch issue introduced by head bob option.
+
+
+Version 1.0.2:
+[November 21, 2022]
+- Changed: Added InputRepeatReleased to IGridControllerInput.
+- Added head bob option.
+- Releasing key-repeat input clears movement queue.
+- GridController.IsBlocked is now public.
+- Added Auto Turn checkbox to FreeLook to allow disabling of auto turn when looking past 80 degrees.
+- Moved GridController prefab from Demo folder to Prefabs folder.
+- Rewired: Added Disable Mouse On iOS checkbox.
+
+
+
+Version 1.0.1:
+[November 9, 2022]
+- Added scaled footstep audio when turning in place.
+- Added Queue Input checkbox to GridController to allow disabling movement input queueing.
+- Added GridController.Turning() C# event.
+- Exposed properties GridController.BoxcastHeight, BoxcastExtents, & CrouchScaleY.
+- When crouched, Boxcast Height & Boxcast Extents > Y are now scaled by Crouch Scale Y.
+- Fixed crouch issue when controller is not on Y=0 position.
+- When Free Look > Limit Horizontal Rotation is ticked, horizontal rotation is restricted to 0-79 degrees.
+- Added URP & HDRP materials packages.
+
+
+Version 1.0.0:
+[October 18, 2022]
+- Initial release.
+

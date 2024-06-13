@@ -4,7 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Ground
+  - RootHinge
+  - CameraHinge
+  - WeaponHinge
+  - Terrain
+  - Fire
+  - Target
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -14,20 +20,20 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - whatIsGround
-  - 
-  - 
-  - 
-  - 
-  - 
+  - First Person Weapon
+  - Physics Shell
+  - Enemy
+  - Obstacle
+  - Player
   - 
   - 
   - 
   - 
   - 
+  - RemoteBody
   - 
+  - PostProcessing
+  - ScopePostProcessing
   - 
   - 
   - 

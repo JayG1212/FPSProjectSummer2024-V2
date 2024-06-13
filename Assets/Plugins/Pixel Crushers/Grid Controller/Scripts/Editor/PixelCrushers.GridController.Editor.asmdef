@@ -1,0 +1,18 @@
+{
+    "name": "PixelCrushers.GridController.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e7de1ab74b2262a46baf3f4dae84b9b4"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

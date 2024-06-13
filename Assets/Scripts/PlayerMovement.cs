@@ -14,7 +14,10 @@ public class PlayerMovement : MonoBehaviour
 
     // Movement
 
-    public float moveSpeed; // Walking speed
+    private float moveSpeed; // Walking speed
+    public float walkSpeed;
+    public float runSpeed;
+    public KeyCode sprintKey = KeyCode.LeftShift;
     public Transform orientation; // Player's orientation
     
     float horizontalInput; // Horizontal keyboard inputs
@@ -91,11 +94,24 @@ public class PlayerMovement : MonoBehaviour
 
         // On Ground
         if (grounded) 
-        { 
+        {
+            // Checks if isRunning is true, and if so will set current speed to runspeed
+            bool isRunning = Input.GetKey(KeyCode.LeftShift);
+            
+            if (isRunning)
+            {
+                moveSpeed = runSpeed;
+            }
+
+            else
+            {
+                moveSpeed = walkSpeed;
+            }
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force); // Adds force to our movements  
         }
         else if(!grounded)
         {
+            moveSpeed = walkSpeed;
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force); // Adds force to our movements 
         }
     }

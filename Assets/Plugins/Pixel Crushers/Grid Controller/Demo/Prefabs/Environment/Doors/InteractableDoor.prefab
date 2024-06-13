@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3070434281144295027
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2871123323475970941, guid: bf344cd58d3a840489bdf1ea85fc78f7, type: 3}
+      propertyPath: m_Size.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871123323475970941, guid: bf344cd58d3a840489bdf1ea85fc78f7, type: 3}
+      propertyPath: m_Size.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871123323475970941, guid: bf344cd58d3a840489bdf1ea85fc78f7, type: 3}
+      propertyPath: m_Center.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871123323475970943, guid: bf344cd58d3a840489bdf1ea85fc78f7, type: 3}
+      propertyPath: m_Name
+      value: InteractableDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288591622758288677, guid: bf344cd58d3a840489bdf1ea85fc78f7, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288591622758288677, guid: bf344cd58d3a840489bdf1ea85fc78f7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288591622758288677, guid: bf344cd58d3a840489bdf1ea85fc78f7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288591622758288677, guid: bf344cd58d3a840489bdf1ea85fc78f7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288591622758288677, guid: bf344cd58d3a840489bdf1ea85fc78f7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288591622758288677, guid: bf344cd58d3a840489bdf1ea85fc78f7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288591622758288677, guid: bf344cd58d3a840489bdf1ea85fc78f7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288591622758288677, guid: bf344cd58d3a840489bdf1ea85fc78f7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288591622758288677, guid: bf344cd58d3a840489bdf1ea85fc78f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288591622758288677, guid: bf344cd58d3a840489bdf1ea85fc78f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288591622758288677, guid: bf344cd58d3a840489bdf1ea85fc78f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bf344cd58d3a840489bdf1ea85fc78f7, type: 3}
+--- !u!1 &955916262072276236 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2871123323475970943, guid: bf344cd58d3a840489bdf1ea85fc78f7, type: 3}
+  m_PrefabInstance: {fileID: 3070434281144295027}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2148914249927332051 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3985164132586884768, guid: bf344cd58d3a840489bdf1ea85fc78f7, type: 3}
+  m_PrefabInstance: {fileID: 3070434281144295027}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955916262072276236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9b1ef77b9dd1564587e4f0890c7b335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &7674716456560697280
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955916262072276236}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 4, z: 0.125}
+  m_Center: {x: 0, y: 2, z: 0}
+--- !u!114 &3459638488345301132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955916262072276236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b430e917c1a10dc4b888585d2a627d56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2148914249927332051}
+        m_TargetAssemblyTypeName: PixelCrushers.GridController.VerticalDoor, Assembly-CSharp-firstpass
+        m_MethodName: Open
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
