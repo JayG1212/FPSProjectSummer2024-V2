@@ -332,7 +332,7 @@ MonoBehaviour:
   playerCamera: {fileID: 963194227}
   isShooting: 0
   readyToShoot: 0
-  shootingDelay: 0.5
+  shootingDelay: 0.1
   bulletsPerBurst: 3
   burstBulletsLeft: 0
   spreadIntensity: 0
@@ -1491,7 +1491,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2020252001}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
