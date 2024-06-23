@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    
+    public bool isActiveWeapon;
+
     // Shooting
     public bool isShooting;
     public bool readyToShoot;
@@ -29,7 +30,7 @@ public class Weapon : MonoBehaviour
    
     // Animations and Particles
     public GameObject muzzleEffect;
-    private Animator animator;
+    internal Animator animator;
 
     // Loading
     public float reloadTime;
@@ -37,8 +38,11 @@ public class Weapon : MonoBehaviour
     public int bulletsLeft;
     public Boolean isReloading;
 
-   
+    // Spawn and rotation positiosn for picked up weapons
+    public Vector3 spawnPosition;
+    public Vector3 spawnRotation;
 
+    // Types of Shootings
     public enum ShootingMode
     {
         Single,
@@ -46,6 +50,14 @@ public class Weapon : MonoBehaviour
         Automatic
     }
 
+    // Type of weapons
+    public enum WeaponModel
+    {
+        Glock,
+        AK47
+    }
+
+    public WeaponModel thisWeapon;
     public ShootingMode currentShootingMode;
 
     private void Awake()
@@ -58,84 +70,89 @@ public class Weapon : MonoBehaviour
     }
     void Update()
     {
-        if (bulletsLeft <= 0 && isShooting)
+        if (isActiveWeapon)
         {
-            SoundManager.Instance.emptyMagazineSound.Play();
-        }
+            if ((bulletsLeft <= 0 || isReloading)&& isShooting)
+            {
+                SoundManager.Instance.emptyMagazineSound.Play();
+            }
 
             if (currentShootingMode == ShootingMode.Automatic)
-        {
-            // Holding down left click
-            isShooting = Input.GetKey(KeyCode.Mouse0); // GetKey allows for us to hold it down
-        }
-        else if(currentShootingMode == ShootingMode.Single || currentShootingMode == ShootingMode.Burst)
-        {
-            
-            isShooting = Input.GetKeyDown(KeyCode.Mouse0); // GetKeyDown makes us have to click again
-        }
+            {
+                // Holding down left click
+                isShooting = Input.GetKey(KeyCode.Mouse0); // GetKey allows for us to hold it down
+            }
+            else if (currentShootingMode == ShootingMode.Single || currentShootingMode == ShootingMode.Burst)
+            {
 
-        // Reloading
-        if(Input.GetKeyDown(KeyCode.R)&& bulletsLeft < magazineSize && !isReloading) // Manual reload
-        {
-            Reload();
-        }
-        if(readyToShoot && bulletsLeft == 0 && !isShooting && !isReloading)
-        {
-            Reload();
-        }
+                isShooting = Input.GetKeyDown(KeyCode.Mouse0); // GetKeyDown makes us have to click again
+            }
+
+            // Reloading
+            if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !isReloading) // Manual reload
+            {
+                Reload();
+            }
+            if (readyToShoot && bulletsLeft == 0 && !isShooting && !isReloading)
+            {
+                Reload();
+            }
 
 
-        if(readyToShoot && isShooting && bulletsLeft >0)
-        {
-            burstBulletsLeft = bulletsPerBurst;
-            FireWeapon();
-        }
+            if (readyToShoot && isShooting && bulletsLeft > 0)
+            {
+                burstBulletsLeft = bulletsPerBurst;
+                FireWeapon();
+            }
 
-        if(AmmoManager.Instance.ammoDisplay != null)
-        {
-            AmmoManager.Instance.ammoDisplay.text = $"{bulletsLeft / bulletsPerBurst}/{magazineSize/bulletsPerBurst}";
-        }
+            if (AmmoManager.Instance.ammoDisplay != null)
+            {
+                AmmoManager.Instance.ammoDisplay.text = $"{bulletsLeft / bulletsPerBurst}/{magazineSize / bulletsPerBurst}";
+            }
+       }
     }
 
     private void FireWeapon()
     {
-
-        // Each time you fire the gun the bullets decrease
-        bulletsLeft--;
-       // Animationsa and particles will be applied after the weapon is fired
-        muzzleEffect.GetComponent<ParticleSystem>().Play();
-        animator.SetTrigger("RECOIL");
-        
-        // Sound will be played when weapon is fired
-        SoundManager.Instance.shootingSoundGlock.Play();
-        readyToShoot = false;
-
-        Vector3 shootingDirection = CalculateDirectionAndSpread().normalized;
-        
-        // Instantiate the bullet
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
-
-        // Pointing the bullet to face the shooting direction
-        bullet.transform.forward = shootingDirection;
-        
-        // Shoot the bullett
-        bullet.GetComponent<Rigidbody>().AddForce(bulletSpawn.forward.normalized * bulletVelocity, ForceMode.Impulse);
-
-        // Destroy bullet after some time
-        StartCoroutine(DestroyBulletAfterTime(bullet,bulletPrefabLifeTime));
-
-        // Check if we are done shooting
-        if (allowReset)
+        if (isReloading == false)
         {
-            Invoke("ResetShot", shootingDelay);
-            allowReset = false;
-        }
+            // Each time you fire the gun the bullets decrease
+            bulletsLeft--;
+            // Animationsa and particles will be applied after the weapon is fired
+            muzzleEffect.GetComponent<ParticleSystem>().Play();
+            animator.SetTrigger("RECOIL");
 
-        // Burst Mode
-        if(currentShootingMode == ShootingMode.Burst && burstBulletsLeft > 1) // we shoot once bbefore this check
-        {
-            burstBulletsLeft--;
-            Invoke("FireWeapon", shootingDelay);
+            // Sound will be played when weapon is fired
+            SoundManager.Instance.PlayShootingSound(thisWeapon);
+            readyToShoot = false;
+
+            Vector3 shootingDirection = CalculateDirectionAndSpread().normalized;
+
+            // Instantiate the bullet
+            GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
+
+            // Pointing the bullet to face the shooting direction
+            bullet.transform.forward = shootingDirection;
+
+            // Shoot the bullett
+            bullet.GetComponent<Rigidbody>().AddForce(bulletSpawn.forward.normalized * bulletVelocity, ForceMode.Impulse);
+
+            // Destroy bullet after some time
+            StartCoroutine(DestroyBulletAfterTime(bullet, bulletPrefabLifeTime));
+
+            // Check if we are done shooting
+            if (allowReset)
+            {
+                Invoke("ResetShot", shootingDelay);
+                allowReset = false;
+            }
+
+            // Burst Mode
+            if (currentShootingMode == ShootingMode.Burst && burstBulletsLeft > 1) // we shoot once bbefore this check
+            {
+                burstBulletsLeft--;
+                Invoke("FireWeapon", shootingDelay);
+            }
         }
 
         
@@ -145,7 +162,8 @@ public class Weapon : MonoBehaviour
     private void Reload()
     {
         isReloading = true;
-        SoundManager.Instance.reloadingSoundGlock.Play();
+        SoundManager.Instance.PlayReloadSound(thisWeapon);
+        animator.SetTrigger("RELOADING");
         Invoke("ReloadCompleted", reloadTime);
 
 
@@ -164,7 +182,7 @@ public class Weapon : MonoBehaviour
 
     private Vector3 CalculateDirectionAndSpread()
     {
-        // Shooting form the middle of our screen to check where are we pointing at
+        // Shooting from the middle of our screen to check where are we pointing at
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
         Vector3 targetPoint;
