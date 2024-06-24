@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8365230328891348375}
   - component: {fileID: 5635891224546739308}
   - component: {fileID: 1235588503178364588}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: MuzzleFlashEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4792,7 +4792,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 340332122436092901}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: BulletSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4827,7 +4827,7 @@ GameObject:
   - component: {fileID: 2748340245562890014}
   - component: {fileID: 2219270570692298113}
   - component: {fileID: 7796393991796369144}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: Magazine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4843,7 +4843,7 @@ Transform:
   m_GameObject: {fileID: 3012271867598202636}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 3.5527137e-15, z: -2.5121483e-15, w: 1}
-  m_LocalPosition: {x: -0.000000010226756, y: 0.0012992879, z: -0.11698044}
+  m_LocalPosition: {x: -0.00000001022676, y: 0.001299288, z: -0.1169804}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4910,7 +4910,7 @@ GameObject:
   - component: {fileID: 2143579524050737041}
   - component: {fileID: 6490827655521070956}
   - component: {fileID: 68322697122807921}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4995,7 +4995,9 @@ GameObject:
   - component: {fileID: 2979896254261141279}
   - component: {fileID: 3664769814852084810}
   - component: {fileID: 8470710266307803437}
-  m_Layer: 0
+  - component: {fileID: 1317570873484952975}
+  - component: {fileID: 727730630208864230}
+  m_Layer: 22
   m_Name: Glock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5012,7 +5014,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.44, y: -0.25, z: 0.92}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1.5000023, y: 1.5000023, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2748340245562890014}
@@ -5083,6 +5085,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4109c0a653001874980e4100e92c9e81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isActiveWeapon: 0
   isShooting: 0
   readyToShoot: 0
   shootingDelay: 0.3
@@ -5095,10 +5098,12 @@ MonoBehaviour:
   bulletVelocity: 100
   bulletPrefabLifeTime: 3
   muzzleEffect: {fileID: 1203302168678633049}
-  reloadTime: 15
+  reloadTime: 2.2
   magazineSize: 7
   bulletsLeft: 0
   isReloading: 0
+  spawnPosition: {x: 0.44, y: -0.25, z: 0.92}
+  spawnRotation: {x: 0, y: 0, z: 0}
   thisWeapon: 0
   currentShootingMode: 0
 --- !u!95 &8470710266307803437
@@ -5109,7 +5114,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6008339175149169535}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 1148312fadeba7a41befa69b93ad8d3e, type: 2}
   m_CullingMode: 0
@@ -5122,6 +5127,45 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &1317570873484952975
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6008339175149169535}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.07643927, y: 0.23008114, z: 0.3857143}
+  m_Center: {x: -0.0008874985, y: -0.006205605, z: -0.011504732}
+--- !u!114 &727730630208864230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6008339175149169535}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &8547412369158071795
 GameObject:
   m_ObjectHideFlags: 0
@@ -5133,7 +5177,7 @@ GameObject:
   - component: {fileID: 7623735380588199471}
   - component: {fileID: 4001305640977160377}
   - component: {fileID: 6260024212382443055}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}

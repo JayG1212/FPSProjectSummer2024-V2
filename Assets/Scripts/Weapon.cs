@@ -72,16 +72,23 @@ public class Weapon : MonoBehaviour
     {
         if (isActiveWeapon)
         {
+
+            GetComponent<Outline>().enabled = false; //  Fixes bug that keeps weapon outlined after swapping fast
+            
+            // Empty Magazine sound
             if ((bulletsLeft <= 0 || isReloading)&& isShooting)
             {
                 SoundManager.Instance.emptyMagazineSound.Play();
             }
 
+            // Automatic shooting
             if (currentShootingMode == ShootingMode.Automatic)
             {
                 // Holding down left click
                 isShooting = Input.GetKey(KeyCode.Mouse0); // GetKey allows for us to hold it down
             }
+            
+            // Semi-Automatic or Burst
             else if (currentShootingMode == ShootingMode.Single || currentShootingMode == ShootingMode.Burst)
             {
 
@@ -105,10 +112,6 @@ public class Weapon : MonoBehaviour
                 FireWeapon();
             }
 
-            if (AmmoManager.Instance.ammoDisplay != null)
-            {
-                AmmoManager.Instance.ammoDisplay.text = $"{bulletsLeft / bulletsPerBurst}/{magazineSize / bulletsPerBurst}";
-            }
        }
     }
 
