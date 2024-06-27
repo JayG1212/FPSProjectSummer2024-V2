@@ -27,6 +27,7 @@ public class HUDManager : MonoBehaviour
 
     public Sprite emptySlot;
 
+    public GameObject middleDot;
     public static HUDManager Instance { get; set; }
     private void Awake()
     {
@@ -53,7 +54,7 @@ public class HUDManager : MonoBehaviour
         if (activeWeapon)
         {
             magazineAmmoUI.text = $"{activeWeapon.bulletsLeft / activeWeapon.bulletsPerBurst}"; // The ammo we have in our magazine
-            totalAmmoUI.text = $"{activeWeapon.magazineSize / activeWeapon.bulletsPerBurst}";  // Our total ammo outside the magazine
+            totalAmmoUI.text = $"{WeaponManager.Instance.CheckAmmoLeftFor(activeWeapon.thisWeapon)}";  // Our total ammo outside the magazine
 
             Weapon.WeaponModel model = activeWeapon.thisWeapon;
             

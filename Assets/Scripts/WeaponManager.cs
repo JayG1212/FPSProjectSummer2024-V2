@@ -3,12 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Windows;
+using static Weapon;
 
 public class WeaponManager : MonoBehaviour
 {
     public static WeaponManager Instance { get; set; }
     public List<GameObject> weaponSlots;
     public GameObject activeWeaponSlot;
+
+    [Header("Ammo")]
+    public int totalRifleAmmo = 0;
+    public int totalPistolAmmo = 0;
     private void Awake()
     {
 
@@ -104,6 +109,52 @@ public class WeaponManager : MonoBehaviour
         {
             Weapon newWeapon = activeWeaponSlot.transform.GetChild(0).GetComponent<Weapon>();
             newWeapon.isActiveWeapon = true;
+        }
+    }
+
+    internal void PickUpAmmo(AmmoBox hoveredAmmoBox)
+    {
+        switch (hoveredAmmoBox.ammoType)
+        {
+            case (AmmoBox.AmmoType.RifleAmmo):
+                totalRifleAmmo += hoveredAmmoBox.ammoAmount;
+                break;
+            case (AmmoBox.AmmoType.PistolAmmo):
+                totalPistolAmmo += hoveredAmmoBox.ammoAmount;
+                break;
+
+
+
+
+        }
+        print("Picked up Ammo");
+    }
+
+    internal void DecreaseTotalAmmo(int bulletsToDecrease, Weapon.WeaponModel thisWeapon)
+    {
+        switch (thisWeapon)
+        {
+            case Weapon.WeaponModel.AK47:
+                totalRifleAmmo -= bulletsToDecrease;
+                break;
+            case Weapon.WeaponModel.Glock:
+                totalPistolAmmo -= bulletsToDecrease;
+                break;
+
+        
+        }
+    }
+
+    public int CheckAmmoLeftFor(Weapon.WeaponModel thisWeapon)
+    {
+        switch (thisWeapon)
+        {
+            case (Weapon.WeaponModel.AK47):
+                return totalRifleAmmo;
+            case (Weapon.WeaponModel.Glock):
+                return totalPistolAmmo;
+            default:
+                return 0;
         }
     }
 }

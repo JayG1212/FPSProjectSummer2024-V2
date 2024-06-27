@@ -8,30 +8,37 @@ public class Weapon : MonoBehaviour
 {
     public bool isActiveWeapon;
 
+    [Header("Shooting")]
     // Shooting
     public bool isShooting;
     public bool readyToShoot;
     bool allowReset = true;
     public float shootingDelay = 2f;
 
+    [Header("Burst")]
     // Burst
     public int bulletsPerBurst = 3;
     public int burstBulletsLeft;
 
+    [Header("Spread")]
     // Spread
     public float spreadIntensity;
+    public float hipSpreadIntensity;
+    public float adsSpreadIntensity;
 
-    
+    [Header("Bullet")]
     // Bullet Prroperties
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
     public float bulletVelocity = 30;
     public float bulletPrefabLifeTime = 3f;
    
+
     // Animations and Particles
     public GameObject muzzleEffect;
     internal Animator animator;
 
+    [Header("Reload & Magazine")]
     // Loading
     public float reloadTime;
     public int magazineSize;
@@ -41,6 +48,8 @@ public class Weapon : MonoBehaviour
     // Spawn and rotation positiosn for picked up weapons
     public Vector3 spawnPosition;
     public Vector3 spawnRotation;
+
+    bool isADS = false;
 
     // Types of Shootings
     public enum ShootingMode
@@ -67,6 +76,8 @@ public class Weapon : MonoBehaviour
         animator = GetComponent<Animator>();
         // Sets bullets to default amount
         bulletsLeft = magazineSize;
+
+        spreadIntensity = hipSpreadIntensity;
     }
     void Update()
     {
@@ -74,7 +85,24 @@ public class Weapon : MonoBehaviour
         {
 
             GetComponent<Outline>().enabled = false; //  Fixes bug that keeps weapon outlined after swapping fast
-            
+
+            // Aim-down sights
+            if (Input.GetMouseButtonDown(1))
+            {
+                animator.SetTrigger("enterADS");
+                isADS = true;
+                HUDManager.Instance.middleDot.SetActive(false);
+                spreadIntensity = adsSpreadIntensity;
+            }
+            if (Input.GetMouseButtonUp(1))
+            {
+                animator.SetTrigger("exitADS");
+                isADS = false;
+                HUDManager.Instance.middleDot.SetActive(true);
+                spreadIntensity = hipSpreadIntensity;
+            }
+
+
             // Empty Magazine sound
             if ((bulletsLeft <= 0 || isReloading)&& isShooting)
             {
@@ -96,11 +124,11 @@ public class Weapon : MonoBehaviour
             }
 
             // Reloading
-            if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !isReloading) // Manual reload
+            if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !isReloading && WeaponManager.Instance.CheckAmmoLeftFor(thisWeapon)> 0) // Manual reload
             {
                 Reload();
             }
-            if (readyToShoot && bulletsLeft == 0 && !isShooting && !isReloading)
+            if (readyToShoot && bulletsLeft == 0 && !isShooting && !isReloading && WeaponManager.Instance.CheckAmmoLeftFor(thisWeapon) > 0)
             {
                 Reload();
             }
@@ -115,6 +143,8 @@ public class Weapon : MonoBehaviour
        }
     }
 
+   
+
     private void FireWeapon()
     {
         if (isReloading == false)
@@ -123,8 +153,17 @@ public class Weapon : MonoBehaviour
             bulletsLeft--;
             // Animationsa and particles will be applied after the weapon is fired
             muzzleEffect.GetComponent<ParticleSystem>().Play();
-            animator.SetTrigger("RECOIL");
 
+
+            if (isADS)
+            {
+                animator.SetTrigger("RECOIL_ADS");
+            }
+            else
+            {
+
+                animator.SetTrigger("RECOIL");
+            }
             // Sound will be played when weapon is fired
             SoundManager.Instance.PlayShootingSound(thisWeapon);
             readyToShoot = false;
@@ -174,7 +213,16 @@ public class Weapon : MonoBehaviour
 
     private void ReloadCompleted()
     {
-        bulletsLeft = magazineSize;
+        if(WeaponManager.Instance.CheckAmmoLeftFor(thisWeapon) > magazineSize)
+        {
+            bulletsLeft = magazineSize;
+            WeaponManager.Instance.DecreaseTotalAmmo(bulletsLeft, thisWeapon);
+        }
+        else
+        {
+            bulletsLeft = WeaponManager.Instance.CheckAmmoLeftFor(thisWeapon);
+            WeaponManager.Instance.DecreaseTotalAmmo(bulletsLeft, thisWeapon);
+        }
         isReloading = false;
     }
     private void ResetShot()
@@ -201,11 +249,11 @@ public class Weapon : MonoBehaviour
         }
         Vector3 direction = targetPoint - bulletSpawn.position;
 
-        float x = UnityEngine.Random.Range(-spreadIntensity, spreadIntensity);
+        float z = UnityEngine.Random.Range(-spreadIntensity, spreadIntensity);
         float y = UnityEngine.Random.Range(-spreadIntensity, spreadIntensity);
 
         // Returning the shooting direction and spread
-        return direction + new Vector3(x, y, 0);
+        return direction + new Vector3(0, y, z);
 
     }
 
