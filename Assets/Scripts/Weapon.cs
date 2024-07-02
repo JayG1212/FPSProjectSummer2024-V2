@@ -7,7 +7,7 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     public bool isActiveWeapon;
-
+    public int weaponDamage;
     [Header("Shooting")]
     // Shooting
     public bool isShooting;
@@ -83,6 +83,10 @@ public class Weapon : MonoBehaviour
     {
         if (isActiveWeapon)
         {
+            foreach(Transform c in transform)
+            {
+                c.gameObject.layer = LayerMask.NameToLayer("WeaponRender");
+            }
 
             GetComponent<Outline>().enabled = false; //  Fixes bug that keeps weapon outlined after swapping fast
 
@@ -141,6 +145,13 @@ public class Weapon : MonoBehaviour
             }
 
        }
+        else
+        {
+            foreach (Transform c in transform)
+            {
+                c.gameObject.layer = LayerMask.NameToLayer("Defualt");
+            }
+        }
     }
 
    
@@ -172,6 +183,9 @@ public class Weapon : MonoBehaviour
 
             // Instantiate the bullet
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
+
+            Bullet aBullet = bullet.GetComponent<Bullet>();
+            aBullet.bulletDamage = weaponDamage;
 
             // Pointing the bullet to face the shooting direction
             bullet.transform.forward = shootingDirection;

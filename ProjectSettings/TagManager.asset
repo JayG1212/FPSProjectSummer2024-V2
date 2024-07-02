@@ -12,6 +12,7 @@ TagManager:
   - Target
   - Wall
   - Bottle
+  - Zombie
   layers:
   - Default
   - TransparentFX

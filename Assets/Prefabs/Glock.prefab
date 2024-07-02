@@ -5014,7 +5014,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.44, y: -0.25, z: 0.92}
-  m_LocalScale: {x: 1.5000023, y: 1.5000023, z: 1.5}
+  m_LocalScale: {x: 1.5000029, y: 1.5000029, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2748340245562890014}
@@ -5092,6 +5092,8 @@ MonoBehaviour:
   bulletsPerBurst: 1
   burstBulletsLeft: 0
   spreadIntensity: 0.05
+  hipSpreadIntensity: 0
+  adsSpreadIntensity: 0
   bulletPrefab: {fileID: 2228169900803399192, guid: 00f37c774d0141e478e99d3bcdf1090e,
     type: 3}
   bulletSpawn: {fileID: 340332122436092901}

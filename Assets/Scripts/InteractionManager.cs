@@ -7,6 +7,8 @@ public class InteractionManager : MonoBehaviour
     public static InteractionManager Instance { get; set; }
     public Weapon hoveredWeapon = null;
     public AmmoBox hoveredAmmoBox;
+    public Throwable hoveredThrowable = null;
+
     private void Awake()
     {
 
@@ -83,6 +85,35 @@ public class InteractionManager : MonoBehaviour
                 if (hoveredAmmoBox) 
                 { 
                     hoveredAmmoBox.GetComponent<Outline>().enabled = false; 
+                }
+
+            }
+
+
+            // Throwable
+            if (objectHitByRaycast.GetComponent<Throwable>())
+            {
+                print("Press F to pick up");
+                hoveredThrowable = objectHitByRaycast.gameObject.GetComponent<Throwable>();
+                hoveredThrowable.GetComponent<Outline>().enabled = true;
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+                    WeaponManager.Instance.PickUpThrowable(hoveredThrowable);
+                }
+                else
+                {
+                    if (hoveredThrowable)
+                    {
+                        hoveredThrowable.GetComponent<Outline>().enabled = true;
+                    }
+
+                }
+            }
+            else
+            {
+                if (hoveredThrowable)
+                {
+                    hoveredThrowable.GetComponent<Outline>().enabled = false;
                 }
 
             }

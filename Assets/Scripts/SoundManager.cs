@@ -13,6 +13,9 @@ public class SoundManager : MonoBehaviour
     public AudioSource emptyMagazineSound;
     public AudioClip GlockShoot;
     public AudioClip AK47Shoot;
+
+    public AudioSource throwablesChannel;
+    public AudioClip grenadeSound;
     private void Awake()
     { 
 
