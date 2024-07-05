@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,9 +33,26 @@ public class Bullet : MonoBehaviour
         if (objectWeHit.gameObject.CompareTag("Enemy"))
         {
             print("Hit a Enemy!");
-            objectWeHit.gameObject.GetComponent<Enemy>().TakeDamage(bulletDamage);
+
+            if (objectWeHit.gameObject.GetComponent<Enemy>().isDead == false)
+            {
+                objectWeHit.gameObject.GetComponent<Enemy>().TakeDamage(bulletDamage); // Stops from having the enemy having negative health and stops the animation from looping
+            }
+            
+            CreateBloodSpreadEffect(objectWeHit);
+            
             Destroy(gameObject);
         }
+    }
+
+    private void CreateBloodSpreadEffect(Collision objectWeHit)
+    {
+        ContactPoint contact = objectWeHit.contacts[0];
+
+        GameObject bloodSprayPrefab = Instantiate(GlobalReferences.Instance.bloodSprayEffect, contact.point, Quaternion.LookRotation(contact.normal));
+
+        bloodSprayPrefab.transform.SetParent(objectWeHit.gameObject.transform);
+        Destroy(gameObject);
     }
 
     void CreateBulletImpactEffect(Collision objectWeHit)

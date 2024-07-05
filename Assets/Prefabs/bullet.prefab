@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deaeef361710cb3498f4628c2b6a6399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletDamage: 0
 --- !u!96 &-2655720813665061188
 TrailRenderer:
   serializedVersion: 3
@@ -157,7 +158,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2228169900803399192}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

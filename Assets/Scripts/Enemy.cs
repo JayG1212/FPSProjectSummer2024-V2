@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
 
     private NavMeshAgent navAgent;
 
+    public bool isDead= false;
     private void Start()
     {
         // Gets both the Animator component and NavMeshAgent of the object that has this attached to it
@@ -23,39 +24,37 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damageAmount)
     {
         HP -= damageAmount;
-        if(HP <= 0)
+        if (HP <= 0)
         {
 
             int randomValue = Random.Range(0, 2); // 0 or 1
 
-            if (randomValue == 0)
+            if (randomValue == 0 && isDead == false)
             {
                 animator.SetTrigger("DIE1");
             }
-            else if(randomValue == 1) // Made it an else if instead of else in case I add another animation
+            else if (randomValue == 1 && isDead == false) // Made it an else if instead of else in case I add another animation
             {
                 animator.SetTrigger("DIE2");
             }
+            isDead = true;
+            SoundManager.Instance.zombieChannel.PlayOneShot(SoundManager.Instance.zombieDeath);
         }
         else
         {
             animator.SetTrigger("DAMAGE");
+            SoundManager.Instance.zombieChannel.PlayOneShot(SoundManager.Instance.zombieHurt);
         }
     }
-
-    private void Update()
+    private void OnDrawGizmos()
     {
-        if (navAgent.velocity.magnitude > 0.1f)
-        {
-            animator.SetBool("isWalking", true);
-        }
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, 2.5f); // Start attacking/Stop attacking
 
-        else
-        {
-            animator.SetBool("isWalking", false);
-        }
-        
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, 100f); // Detection (Start Chasing)
 
-        
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, 2f); // Stop Chasing
     }
 }

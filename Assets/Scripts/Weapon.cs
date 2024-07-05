@@ -83,11 +83,7 @@ public class Weapon : MonoBehaviour
     {
         if (isActiveWeapon)
         {
-            foreach(Transform c in transform)
-            {
-                c.gameObject.layer = LayerMask.NameToLayer("WeaponRender");
-            }
-
+           
             GetComponent<Outline>().enabled = false; //  Fixes bug that keeps weapon outlined after swapping fast
 
             // Aim-down sights
@@ -145,13 +141,8 @@ public class Weapon : MonoBehaviour
             }
 
        }
-        else
-        {
-            foreach (Transform c in transform)
-            {
-                c.gameObject.layer = LayerMask.NameToLayer("Defualt");
-            }
-        }
+       
+        
     }
 
    
