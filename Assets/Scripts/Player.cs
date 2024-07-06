@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+     
         playerHealthUI.text = $"Health: {HP}";
     }
     public void TakeDamage(int damageAmount)
@@ -61,6 +63,23 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(1f); // Delay
         gameOverUI.gameObject.SetActive(true);
+
+        int waveSurvived = GlobalReferences.Instance.waveNumber;
+        SaveLoadManager.Instance.SaveHighScore(waveSurvived - 1);
+
+        if(waveSurvived - 1 > SaveLoadManager.Instance.LoadHighScore())
+        {
+            SaveLoadManager.Instance.SaveHighScore(waveSurvived - 1);        
+        }
+
+        StartCoroutine(RetunToMainMenu());
+    }
+
+    private IEnumerator RetunToMainMenu()
+    {
+        yield return new WaitForSeconds(8f);
+
+        SceneManager.LoadScene("MainMenu");
     }
 
     private IEnumerator BloodyScreenEffect()
