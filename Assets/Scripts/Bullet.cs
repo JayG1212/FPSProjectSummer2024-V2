@@ -37,6 +37,7 @@ public class Bullet : MonoBehaviour
             if (objectWeHit.gameObject.GetComponent<Enemy>().isDead == false)
             {
                 objectWeHit.gameObject.GetComponent<Enemy>().TakeDamage(bulletDamage); // Stops from having the enemy having negative health and stops the animation from looping
+                
             }
             
             CreateBloodSpreadEffect(objectWeHit);
@@ -44,6 +45,7 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 
     private void CreateBloodSpreadEffect(Collision objectWeHit)
     {

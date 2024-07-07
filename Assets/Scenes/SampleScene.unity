@@ -23243,6 +23243,7 @@ MonoBehaviour:
   smokeGrenadeEffect: {fileID: 100000, guid: 4ecfa3d3919108f4fbff80d1c4d920a1, type: 3}
   bloodSprayEffect: {fileID: 1207078176759137434, guid: 1884f1995512c04449c30cc17d4e16dd,
     type: 3}
+  waveNumber: 0
 --- !u!4 &867318552
 Transform:
   m_ObjectHideFlags: 0

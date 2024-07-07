@@ -20,6 +20,10 @@ public class MainMenu : MonoBehaviour
         menuChannel.PlayOneShot(backgroundMusic);
         int highScore = SaveLoadManager.Instance.LoadHighScore();
         highScoreUI.text = $"Top Wave Surrvived:  {highScore}";
+
+        // Cursor would be disabled when we enter game, so we need it enabled when we enter the menu again after losing
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void StartNewGame()

@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     private Animator animator;
 
     private NavMeshAgent navAgent;
-
+    public ZombieHand zombieHand;
     public bool isDead= false;
     private void Start()
     {
@@ -32,13 +32,17 @@ public class Enemy : MonoBehaviour
             if (randomValue == 0 && isDead == false)
             {
                 animator.SetTrigger("DIE1");
+
             }
             else if (randomValue == 1 && isDead == false) // Made it an else if instead of else in case I add another animation
             {
                 animator.SetTrigger("DIE2");
             }
             isDead = true;
+            zombieHand.gameObject.SetActive(false);
             SoundManager.Instance.zombieChannel.PlayOneShot(SoundManager.Instance.zombieDeath);
+            StartCoroutine(DestroyAfterDelay(8f)); // After 8 seconds the enemy will be destroyed
+
         }
         else
         {
@@ -46,6 +50,13 @@ public class Enemy : MonoBehaviour
             SoundManager.Instance.zombieChannel.PlayOneShot(SoundManager.Instance.zombieHurt);
         }
     }
+
+    private IEnumerator DestroyAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject);
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
